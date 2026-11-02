@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>КОД МУЖЕСТВА: Герои Отечества из Башкортостана и Учалинского района</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Russo One / JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+  <!-- QR Code Library for real QR generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bgMain: '#0b0f17',
+            bgCard: '#151c28',
+            bgCardHover: '#1c2536',
+            gold: '#d4af37',
+            goldLight: '#f3d060',
+            emeraldAccent: '#10b981',
+            borderDark: '#263147'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['Lora', 'Georgia', 'serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0b0f17;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 85% 25%, rgba(16, 185, 129, 0.07) 0%, transparent 40%);
+      min-height: 100vh;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0f17;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #263147;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #d4af37;
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fff6d6 0%, #d4af37 55%, #b38728 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tactical-card {
+      background: linear-gradient(180deg, rgba(21, 28, 40, 0.95) 0%, rgba(15, 21, 31, 0.98) 100%);
+      border: 1px solid #263147;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tactical-card:hover {
+      border-color: rgba(212, 175, 55, 0.6);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(212, 175, 55, 0.15);
+    }
+
+    .street-plaque {
+      background: linear-gradient(135deg, #162133 0%, #0f1724 100%);
+      border: 2px solid #2c3e5a;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .street-plaque.active {
+      border-color: #d4af37;
+      background: linear-gradient(135deg, #1f2b3f 0%, #141e2e 100%);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-gold selection:text-bgMain pb-16">
+
+  <!-- ВЕРХНЯЯ НАВИГАЦИОННАЯ ПАНЕЛЬ -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-bgMain/90 border-b border-borderDark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <!-- Логотип проекта -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold/25 to-emeraldAccent/20 border border-gold/50 flex items-center justify-center shadow-inner">
+          <!-- Иконка Звезды Героя -->
+          <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l2.92 6.26L22 9.27l-5.05 4.73L18.18 21 12 17.56 5.82 21l1.23-7-5.05-4.73 7.08-1.01L12 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold tracking-wider text-sm sm:text-base text-white">КОД МУЖЕСТВА</span>
+            <span class="hidden md:inline-block text-[11px] font-mono uppercase px-2 py-0.5 rounded bg-emeraldAccent/15 text-emeraldAccent border border-emeraldAccent/30">РБ • Учалы</span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Цифровая памятка индивидуального проекта</p>
+        </div>
+      </div>
+
+      <!-- Кнопки действий в шапке -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="openPassportModal()" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium bg-bgCard hover:bg-bgCardHover text-slate-200 border border-borderDark transition flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-emeraldAccent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <span class="hidden sm:inline">Паспорт ИП</span>
+        </button>
+
+        <button onclick="openQrModal()" class="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-gradient-to-r from-gold to-amber-500 text-slate-950 hover:brightness-110 transition shadow-lg shadow-gold/15 flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+          </svg>
+          <span>QR-код проекта</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO-БЛОК И КЛЮЧЕВАЯ СТАТИСТИКА -->
+  <section class="relative pt-8 pb-8 sm:pt-12 sm:pb-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="max-w-4xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold tracking-wide uppercase mb-4">
+        <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+        Индивидуальный проект | Цифровой образовательный продукт
+      </div>
+      <h1 class="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight mb-4">
+        КОД МУЖЕСТВА: <span class="gold-gradient-text">Герои Отечества из Башкортостана</span>
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl">
+        От легендарных «Северных амуров» и мирового рекорда 112-й Башкирской кавалерийской дивизии до героев Учалинской земли и наших дней. Интерактивный справочник для студентов: <span class="text-emeraldAccent font-medium">реальные судьбы и решения за табличками знакомых улиц</span>.
+      </p>
+    </div>
+
+    <!-- 4 карточки статистики -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+      <div class="tactical-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="text-xs font-mono uppercase text-slate-400 mb-1">Мобилизация БАССР (1941–1945)</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white font-serif">&gt; 700 000</div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">уроженцев Башкирии ушли на фронт Великой Отечественной войны</p>
+        <div class="mt-3 h-1 w-12 bg-gold rounded"></div>
+      </div>
+
+      <div class="tactical-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="text-xs font-mono uppercase text-slate-400 mb-1">Высшая доблесть республики</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-gold font-serif">299 <span class="text-lg font-sans font-semibold text-slate-300">и</span> 44</div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">299 Героев Советского Союза и 44 полных кавалера ордена Славы</p>
+        <div class="mt-3 h-1 w-12 bg-emeraldAccent rounded"></div>
+      </div>
+
+      <div class="tactical-card rounded-2xl p-5 relative overflow-hidden">
+        <div class="text-xs font-mono uppercase text-slate-400 mb-1">Мировой рекорд в 1 дивизии</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-emeraldAccent font-serif">78 Героев</div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">воспитала 112-я Башкирская кавалерийская дивизия ген. М. Шаймуратова</p>
+        <div class="mt-3 h-1 w-12 bg-gold rounded"></div>
+      </div>
+
+      <div class="tactical-card rounded-2xl p-5 relative overflow-hidden border-gold/40">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono uppercase text-gold">Учалинский район</span>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-gold/15 text-gold font-semibold">Малая родина</span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white font-serif mt-1">13 437</div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">учалинцев ушли на фронт (9 785 не вернулись). <strong class="text-gold">6 Героев СССР</strong> и 3 кавалера Славы</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ГЛАВНЫЙ ПЕРЕКЛЮЧАТЕЛЬ РЕЖИМОВ (3 ВКЛАДКИ) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="bg-bgCard p-1.5 rounded-2xl border border-borderDark grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+      <button id="tabBtn-heroes" onclick="switchTab('heroes')" class="py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2 bg-gold text-slate-950 shadow-md">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>1. База Героев (Карточки)</span>
+      </button>
+
+      <button id="tabBtn-streets" onclick="switchTab('streets')" class="py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2 text-slate-300 hover:text-white hover:bg-bgCardHover">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>2. Имена на улицах (Учалы и Уфа)</span>
+      </button>
+
+      <button id="tabBtn-quiz" onclick="switchTab('quiz')" class="py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2 text-slate-300 hover:text-white hover:bg-bgCardHover">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span>3. Интерактивный тест (5 вопросов)</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- ВКЛАДКА 1: БАЗА ГЕРОЕВ (КАРТОЧКИ С ФИЛЬТРАМИ И ТУМБЛЕРОМ) -->
+  <!-- ========================================================= -->
+  <main id="tabContent-heroes" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+    <!-- Панель фильтрации, поиска и спец-тумблера "Ровесники" -->
+    <div class="tactical-card rounded-2xl p-4 sm:p-6 mb-6">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <!-- Категории -->
+        <div class="flex flex-wrap gap-2" id="categoryButtons">
+          <button onclick="setCategory('all')" data-cat="all" class="cat-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-gold text-slate-950 transition">
+            Все (10)
+          </button>
+          <button onclick="setCategory('uchaly')" data-cat="uchaly" class="cat-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-bgMain text-slate-300 border border-borderDark hover:border-gold/50 transition">
+            📍 Герои Учалинской земли (4)
+          </button>
+          <button onclick="setCategory('vov')" data-cat="vov" class="cat-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-bgMain text-slate-300 border border-borderDark hover:border-gold/50 transition">
+            ⭐ Легенды ВОВ (3)
+          </button>
+          <button onclick="setCategory('modern')" data-cat="modern" class="cat-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-bgMain text-slate-300 border border-borderDark hover:border-gold/50 transition">
+            🇷🇺 Герои России (2)
+          </button>
+          <button onclick="setCategory('origins')" data-cat="origins" class="cat-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-bgMain text-slate-300 border border-borderDark hover:border-gold/50 transition">
+            🏹 Истоки 1812 (1)
+          </button>
+        </div>
+
+        <!-- Специальный тумблер: Ровесники (18-22 года) -->
+        <div class="flex items-center justify-between sm:justify-start gap-3 bg-emeraldAccent/10 border border-emeraldAccent/30 px-4 py-2.5 rounded-xl">
+          <div>
+            <div class="text-xs sm:text-sm font-bold text-emeraldAccent flex items-center gap-1.5">
+              <span>🎓 Только наши ровесники (18–22 года)</span>
+            </div>
+            <div class="text-[11px] text-slate-400">Герои в возрасте современных студентов колледжа</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer ml-2">
+            <input type="checkbox" id="peersToggle" onchange="renderHeroes()" class="sr-only peer">
+            <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emeraldAccent"></div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Поиск по базе -->
+      <div class="mt-4 relative">
+        <input
+          type="text"
+          id="heroSearchInput"
+          oninput="renderHeroes()"
+          placeholder="Быстрый поиск: введите фамилию, деревню (например, Имангулово, Сафарово, Уфа) или подвиг..."
+          class="w-full bg-bgMain border border-borderDark focus:border-gold rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none transition"
+        />
+        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Сетка карточек героев -->
+    <div id="heroesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- ВКЛАДКА 2: ИМЕНА НА УЛИЦАХ (КОД ПАМЯТИ УЧАЛЫ И УФА)       -->
+  <!-- ========================================================= -->
+  <section id="tabContent-streets" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+    <div class="tactical-card rounded-2xl p-6 mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono uppercase text-gold">Решение проблемы «невидимых табличек»</span>
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white mt-1">За каждой улицей — судьба и решение</h2>
+          <p class="text-sm text-slate-300 mt-1">Нажмите на любую уличную табличку в Учалах или Уфе, чтобы увидеть, чей подвиг стоит за привычным адресом.</p>
+        </div>
+        <div class="bg-bgMain px-4 py-3 rounded-xl border border-borderDark text-xs text-slate-300 max-w-xs">
+          💡 <strong class="text-white">Факт из нашего опроса:</strong> 92% первокурсников знают эти улицы, но только 28% до знакомства с памяткой знали детали подвига.
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- Список табличек улиц (левая колонка) -->
+      <div id="streetListContainer" class="lg:col-span-5 flex flex-col gap-3"></div>
+
+      <!-- Детальное досье выбранной улицы (правая колонка) -->
+      <div id="streetDetailContainer" class="lg:col-span-7 tactical-card rounded-2xl p-6 sm:p-8 sticky top-20"></div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- ВКЛАДКА 3: ИНТЕРАКТИВНЫЙ ТЕСТ (5 ВОПРОСОВ)                -->
+  <!-- ========================================================= -->
+  <section id="tabContent-quiz" class="hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
+    <div class="tactical-card rounded-2xl p-6 sm:p-8">
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-borderDark">
+        <div>
+          <span class="text-xs font-mono uppercase text-emeraldAccent">Самопроверка знаний по проекту</span>
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white mt-1">Экспресс-тест: Код мужества Башкортостана</h2>
+        </div>
+        <div class="flex items-center gap-3 bg-bgMain px-4 py-2 rounded-xl border border-borderDark">
+          <span class="text-xs text-slate-400">Ваш счёт:</span>
+          <span id="quizScoreBadge" class="font-mono text-lg font-bold text-gold">0 / 5</span>
+        </div>
+      </div>
+
+      <!-- Контейнер вопроса или результата -->
+      <div id="quizBody" class="mt-6"></div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- МОДАЛЬНОЕ ОКНО: ДЕТАЛЬНЫЙ ТАКТИЧЕСКИЙ РАЗБОР ГЕРОЯ        -->
+  <!-- ========================================================= -->
+  <div id="heroModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="tactical-card rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative my-8 border-gold/50 shadow-2xl animate-fade-in">
+      <button onclick="closeHeroModal()" class="absolute top-4 right-4 w-9 h-9 rounded-lg bg-bgMain border border-borderDark text-slate-400 hover:text-white flex items-center justify-center">
+        ✕
+      </button>
+      <div id="heroModalContent"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- МОДАЛЬНОЕ ОКНО: ПАСПОРТ ИНДИВИДУАЛЬНОГО ПРОЕКТА           -->
+  <!-- ========================================================= -->
+  <div id="passportModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="tactical-card rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative my-8 border-emeraldAccent/50 animate-fade-in">
+      <button onclick="closePassportModal()" class="absolute top-4 right-4 w-9 h-9 rounded-lg bg-bgMain border border-borderDark text-slate-400 hover:text-white flex items-center justify-center">
+        ✕
+      </button>
+      <div class="inline-block px-3 py-1 rounded-full bg-emeraldAccent/15 text-emeraldAccent text-xs font-mono uppercase mb-3">
+        Методология по стандарту ФГОС СПО
+      </div>
+      <h3 class="font-serif text-2xl font-bold text-white mb-4">Паспорт индивидуального проекта</h3>
+
+      <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+        <div class="p-3.5 rounded-xl bg-bgMain border border-borderDark">
+          <div class="font-semibold text-gold mb-1">Тема проекта:</div>
+          «Герои Отечества из Башкортостана: код мужества сквозь поколения (от легендарных дивизий до наших дней)».
+        </div>
+        <div class="p-3.5 rounded-xl bg-bgMain border border-borderDark">
+          <div class="font-semibold text-gold mb-1">Проблема исследования:</div>
+          Эффект «невидимых табличек»: 92% опрошенных студентов ежедневно ходят по улицам с именами героев в Учалах и Уфе, но менее 28% знают, какой именно тактический подвиг совершил человек и сколько ему было лет.
+        </div>
+        <div class="p-3.5 rounded-xl bg-bgMain border border-borderDark">
+          <div class="font-semibold text-emeraldAccent mb-1">Гипотеза:</div>
+          Перевод архивных данных (ЦАМО «Подвиг народа» и краеведческих фондов Учалинского района) в формат интерактивного мобильного веб-приложения с акцентом на ровесников (18–22 года) повысит вовлеченность студентов.
+        </div>
+        <div class="p-3.5 rounded-xl bg-bgMain border border-borderDark">
+          <div class="font-semibold text-white mb-1">Практическая значимость (Продукт):</div>
+          Данное веб-приложение доступно по QR-коду со смартфона за 2 секунды и готово для использования на кураторских часах, уроках истории и «Разговорах о важном».
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-end">
+        <button onclick="closePassportModal()" class="px-5 py-2.5 rounded-xl bg-emeraldAccent text-slate-950 font-semibold text-sm">
+          Понятно, вернуться к приложению
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- МОДАЛЬНОЕ ОКНО: ГЕНЕРАТОР QR-КОДА ДЛЯ ПРЕЗЕНТАЦИИ         -->
+  <!-- ========================================================= -->
+  <div id="qrModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="tactical-card rounded-2xl max-w-lg w-full p-6 sm:p-8 relative my-8 border-gold/60 animate-fade-in">
+      <button onclick="closeQrModal()" class="absolute top-4 right-4 w-9 h-9 rounded-lg bg-bgMain border border-borderDark text-slate-400 hover:text-white flex items-center justify-center">
+        ✕
+      </button>
+
+      <div class="inline-block px-3 py-1 rounded-full bg-gold/15 text-gold text-xs font-mono uppercase mb-2">
+        Для слайда №9 и комиссии
+      </div>
+      <h3 class="font-serif text-2xl font-bold text-white">QR-код цифрового продукта</h3>
+      <p class="text-xs sm:text-sm text-slate-300 mt-1">
+        Вы можете показать этот экран прямо на защите или вставить ссылку на опубликованный сайт и одним нажатием скачать готовый PNG для презентации.
+      </p>
+
+      <!-- Поле ввода ссылки -->
+      <div class="mt-4">
+        <label class="block text-xs font-mono uppercase text-slate-400 mb-1.5">Ссылка для кодирования в QR:</label>
+        <div class="flex gap-2">
+          <input
+            type="text"
+            id="qrUrlInput"
+            oninput="generateQrCode()"
+            class="flex-1 bg-bgMain border border-borderDark rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-gold"
+            placeholder="https://..."
+          />
+          <button onclick="copyQrUrl()" id="copyUrlBtn" class="px-3 py-2 rounded-xl bg-bgMain border border-borderDark hover:border-gold text-xs text-slate-200 transition">
+            Копировать
+          </button>
+        </div>
+      </div>
+
+      <!-- Контейнер QR-кода -->
+      <div class="mt-6 flex flex-col items-center justify-center bg-white p-5 rounded-2xl w-fit mx-auto shadow-inner">
+        <div id="qrcodeContainer" class="flex items-center justify-center"></div>
+        <span class="text-[11px] font-mono font-bold text-slate-800 mt-2 tracking-wider">КОД МУЖЕСТВА • БАШКОРТОСТАН</span>
+      </div>
+
+      <!-- Кнопки скачивания -->
+      <div class="mt-6 flex flex-col sm:flex-row gap-3">
+        <button onclick="downloadQrPng()" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-gold to-amber-500 text-slate-950 font-bold text-sm hover:brightness-110 transition flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span>Скачать QR-код (PNG)</span>
+        </button>
+        <button onclick="closeQrModal()" class="py-3 px-4 rounded-xl bg-bgMain border border-borderDark text-slate-300 hover:text-white text-sm font-medium">
+          Закрыть
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ПОДВАЛ -->
+  <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-14 pt-8 border-t border-borderDark text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div>
+      <strong class="text-slate-200">Индивидуальный проект:</strong> «Герои Отечества из Башкортостана: код мужества сквозь поколения» • 2026
+    </div>
+    <div class="flex items-center gap-4">
+      <span>Источники: ЦАМО «Подвиг народа», Башкирская энциклопедия, Учалинский историко-краеведческий музей</span>
+    </div>
+  </footer>
+
+  <!-- ========================================================= -->
+  <!-- СКРИПТ И БАЗА ДАННЫХ ПРИЛОЖЕНИЯ                           -->
+  <!-- ========================================================= -->
+  <script>
+    // 1. БАЗА ДАННЫХ ГЕРОЕВ (10 детализированных карточек)
+    const HEROES_DATA = [
+      {
+        id: 'sunagatullin',
+        name: 'Сунагатуллин Жавдат Гумурдакович',
+        years: '1924–2007',
+        category: 'uchaly',
+        categoryLabel: 'Герой Учалинской земли',
+        award: 'Герой Советского Союза',
+        ageAtFeat: '19 лет',
+        isStudentPeer: true,
+        location: 'д. Имангулово, Учалинский район',
+        shortFeat: 'В 19 лет при форсировании Днепра в одиночку ночью разведал оборону врага, а в бою гранатой подбил танк, БТР и уничтожил пулемётный расчёт.',
+        tacticalTask: 'В ночь на 26 сентября 1943 года требовалось скрытно переправиться через Днепр в районе с. Сошиновка (Днепропетровская область), выявить огневые точки противника и удержать плацдарм до подхода основных сил.',
+        decision: 'Рядовой Сунагатуллин первым переплыл реку, в темноте в одиночку проник к переднему краю врага и доставил точные разведданные. Утром при контратаке немецкой пехоты и танков подпустил технику на бросок гранаты: подбил танк и бронетранспортер, уничтожил пулемёт с расчётом и в рукопашной схватке ликвидировал 9 гитлеровцев.',
+        aftermath: 'Выжил в войне! Вернулся на родину, работал учителем и в органах внутренних дел в Учалах, воспитывал молодёжь.',
+        memoryPlace: 'Улица Жавдата Сунагатуллина и мемориальная доска в г. Учалы, средняя школа в с. Имангулово Учалинского района.'
+      },
+      {
+        id: 'ahmetgalin',
+        name: 'Ахметгалин Хакимьян Рахимович',
+        years: '1923–1944',
+        category: 'uchaly',
+        categoryLabel: 'Герой Учалинской земли',
+        award: 'Герой Советского Союза (посмертно)',
+        ageAtFeat: '21 год',
+        isStudentPeer: true,
+        location: 'д. Сафарово, Учалинский район',
+        shortFeat: 'В составе группы из 10 бойцов удерживал стратегическую высоту Сунуплява в Латвии против танков и пехоты врага, повторив подвиг панфиловцев.',
+        tacticalTask: '18 июля 1944 года группе из 10 гвардейцев под командованием старшего сержанта Х. Р. Ахметгалина было приказано занять господствующую высоту 144,0 у станции Руну (Латвия) и перерезать пути отхода врага.',
+        decision: 'Оказавшись в полном окружении, 10 советских бойцов разных национальностей приняли бой против батальона пехоты и самоходных орудий врага. Ахметгалин лично корректировал огонь, перевязывал раненых и сражался до последнего вздоха, не сдав высоту.',
+        aftermath: 'Высота была удержана до подхода основных сил полка. Всем 10 бойцам группы присвоено звание Героя Советского Союза.',
+        memoryPlace: 'Улица Ахметгалина в г. Учалы, бюст и музей в родном селе Сафарово Учалинского района, обелиск в Центральном музее Вооруженных Сил в Москве.'
+      },
+      {
+        id: 'matrosov',
+        name: 'Матросов Александр Матвеевич (Мухамедьянов Шакирьян Юнусович)',
+        years: '1924–1943',
+        category: 'uchaly',
+        categoryLabel: 'Герой Учалинской земли',
+        award: 'Герой Советского Союза (посмертно)',
+        ageAtFeat: '19 лет',
+        isStudentPeer: true,
+        location: 'д. Кунакбаево, Учалинский район',
+        shortFeat: 'В 19 лет в решающий момент боя у деревни Чернушки закрыл своим телом амбразуру вражеского дзота, позволив батальону выполнить боевую задачу.',
+        tacticalTask: '27 февраля 1943 года батальон 91-й отдельной Сибирской добровольческой бригады атаковал опорный пункт у д. Чернушки (Псковская обл.). Три пулемётных дзота перекрыли подступы, прижав пехоту к снегу.',
+        decision: 'Два дзота были подавлены штурмовыми группами, но третий продолжал вести фланкирующий огонь. Израсходовав патроны и гранаты, 19-летний рядовой рывком бросился к амбразуре и закрыл её своим телом, дав роте драгоценные секунды для броска.',
+        aftermath: 'По многолетним документальным исследованиям башкирских краеведов и историков (Р. Насырова и др.), настоящее имя героя — Шакирьян Юнусович Мухамедьянов, уроженец д. Кунакбаево Учалинского района.',
+        memoryPlace: 'Памятники и улицы Матросова в Уфе, Учалах и сотнях городов, мемориальный музей в д. Кунакбаево Учалинского района.'
+      },
+      {
+        id: 'uchaly_trio',
+        name: 'Серебрянников А. Г., Ташкин М. А., Кровко П. М.',
+        years: 'Герои СССР Учалинского края',
+        category: 'uchaly',
+        categoryLabel: 'Герои Учалинской земли',
+        award: 'Три Звезды Героя Советского Союза',
+        ageAtFeat: '25–39 лет',
+        isStudentPeer: false,
+        location: 'г. Учалы / Миндяк / Поляковка',
+        shortFeat: 'Герои-учалинцы и труженики золоторудного края: штурм укреплённой обороны под Харьковом, артиллерийский прорыв в Карпатах и плацдарм на Днепре.',
+        tacticalTask: 'Три яркие страницы фронтовой биографии посланцев Учалинского района на ключевых участках Великой Отечественной войны.',
+        decision: '1) Александр Георгиевич Серебрянников (работал на прииске Буйда в Учалинском р-не) — помощник командира взвода, в октябре 1943 г. у с. Малый Букрин в критический момент поднял роту в атаку и лично подорвал вражеский пулемётный дзот.\n2) Михаил Александрович Ташкин (работал электриком на руднике Миндяк Учалинского р-на) — командир расчёта горной пушки, в сентябре 1944 г. на перевале в Карпатах прямой наводкой уничтожил 2 танка, бронемашину и 4 пулемётные точки.\n3) Пётр Михайлович Кровко (жил и работал в Учалинском р-не) — парторг батальона, при форсировании Днепра возглавил десантную группу и отбил 5 контратак.',
+        aftermath: 'Имена всех шести Героев Советского Союза Учалинского района золотыми буквами вписаны в мемориал Великой Победы.',
+        memoryPlace: 'Аллея Героев и улицы в г. Учалы, мемориальные плиты в с. Миндяк и Учалинском историко-краеведческом музее.'
+      },
+      {
+        id: 'shaimuratov',
+        name: 'Шаймуратов Минигали Мингазович',
+        years: '1899–1943',
+        category: 'vov',
+        categoryLabel: 'Легенды ВОВ (Республика)',
+        award: 'Герой Российской Федерации',
+        ageAtFeat: '43 года',
+        isStudentPeer: false,
+        location: 'д. Биштяки (Шаймуратово), Кармаскалинский р-н',
+        shortFeat: 'Легендарный комдив 112-й (16-й гвардейской) Башкирской кавалерийской дивизии, воспитавшей 78 Героев Советского Союза — мировой рекорд среди сухопутных частей.',
+        tacticalTask: 'В феврале 1943 года дивизия генерала Шаймуратова совершила глубокий рейд по тылам немецких войск на Донбассе (Ворошиловградская область), перерезая коммуникации врага.',
+        decision: 'Обладая выдающимся полководческим талантом и знанием нескольких языков, генерал М. М. Шаймуратов создал соединение невероятной стойкости. 23 февраля 1943 года при прорыве дивизии из оперативного окружения между посёлками Юлино-2 и Штеровским комдив лично находился в боевых порядках и погиб в бою.',
+        aftermath: 'Дивизия под командованием его соратников (в т.ч. генерала Тагира Кусимова) дошла до Эльбы и Бранденбурга. 30 марта 2020 года Указом Президента РФ М. М. Шаймуратову присвоено звание Героя России (посмертно).',
+        memoryPlace: 'Величественный мемориальный ансамбль на Советской площади в г. Уфе, улицы и школы по всему Башкортостану.'
+      },
+      {
+        id: 'gareev',
+        name: 'Гареев Муса Гайсинович',
+        years: '1922–1987',
+        category: 'vov',
+        categoryLabel: 'Легенды ВОВ (Республика)',
+        award: 'Дважды Герой Советского Союза',
+        ageAtFeat: '20–22 года',
+        isStudentPeer: true,
+        location: 'д. Илякшиде, Илишевский р-н / г. Уфа',
+        shortFeat: 'Единственный Дважды Герой СССР из Башкортостана. К 22 годам совершил 250 боевых вылетов на штурмовике Ил-2 без единого ранения и сохранил жизнь своему бортстрелку.',
+        tacticalTask: 'Штурмовики Ил-2 («летающие танки») работали на сверхмалых высотах под шквальным зенитным огнём. Средняя живучесть машины измерялась десятком вылетов.',
+        decision: 'Муса Гареев ушёл на фронт в 20 лет сержантом, а закончил войну в 22 года майором и командиром эскадрильи. Он применял уникальный противозенитный манёвр со скольжением и точечным заходом со стороны солнца. За 250 штурмовок от Сталинграда до Кёнигсберга он ни разу не потерял своего воздушного стрелка Александра Кирьянова.',
+        aftermath: 'Две Золотые Звезды Героя Муса Гареев получил в один день в 1945 году, когда ему было всего 22 года. После войны возглавлял башкирский ДОСААФ в Уфе.',
+        memoryPlace: 'Бронзовый бюст на Бульваре Славы в Уфе, историко-мемориальный музей Мусы Гареева, улицы в городах республики.'
+      },
+      {
+        id: 'kovshova',
+        name: 'Ковшова Наталья Венедиктовна',
+        years: '1920–1942',
+        category: 'vov',
+        categoryLabel: 'Легенды ВОВ (Республика)',
+        award: 'Герой Советского Союза (посмертно)',
+        ageAtFeat: '21 год',
+        isStudentPeer: true,
+        location: 'г. Уфа',
+        shortFeat: 'Уроженка Уфы, снайпер. В 21 год лично уничтожила более 160 солдат и офицеров противника и вела неравный бой в окружении до последней гранаты.',
+        tacticalTask: '14 августа 1942 года возле деревни Сутоки (Новгородская область) снайперская группа попала под фланговый пулемётно-миномётный огонь при контратаке противника.',
+        decision: 'Оставшись вдвоём с боевой подругой Марией Поливановой после гибели командира, 21-летняя Наталья Ковшова (несмотря на множественные ранения в обе руки и ноги) продолжала вести прицельный снайперский огонь. Когда закончились все патроны, девушки подпустили гитлеровцев вплотную и подорвали себя вместе с врагами последними гранатами.',
+        aftermath: 'Пример абсолютного самообладания и верности воинскому долгу в 21 год.',
+        memoryPlace: 'Улица Натальи Ковшовой в микрорайоне Сипайлово (г. Уфа), мемориальная доска на ул. Пушкина в Уфе, ежегодные соревнования по лёгкой атлетике и биатлону.'
+      },
+      {
+        id: 'amurs',
+        name: '«Северные амуры» (28 башкирских полков)',
+        years: '1812–1814 гг.',
+        category: 'origins',
+        categoryLabel: 'Истоки воинской славы (1812)',
+        award: 'Медали «За взятие Парижа 1814»',
+        ageAtFeat: 'Молодые воины-конники',
+        isStudentPeer: false,
+        location: 'Исторический Башкортостан',
+        shortFeat: 'Исторический фундамент мужества: 28 конных башкирских полков прошли с боями от Березины и Лейпцига до капитуляции Парижа в 1814 году.',
+        tacticalTask: 'В Отечественную войну 1812 года и Заграничные походы русской армии требовалась сверхманёвренная лёгкая кавалерия для разведки, ночных рейдов и преследования армии Наполеона.',
+        decision: 'Башкирия выставила 28 конных полков и собрала 500 тысяч рублей пожертвований. Всадники владели саблями, пиками и боевыми луками, стрелы которых летели совершенно бесшумно и поражали противника на расстоянии до 200 шагов. Потрясённые французы прозвали башкирских воинов «Северными амурами» (Les Amours du Nord).',
+        aftermath: '9 башкирских полков триумфально вошли в Париж в марте 1814 года. Именно эта многовековая традиция легла в основу боевого духа 112-й Башкавдивизии в 1941 году.',
+        memoryPlace: 'Памятники и мемориалы в Башкортостане, Лейпциге (Германия) и экспозиции Национального музея РБ.'
+      },
+      {
+        id: 'dostavalov',
+        name: 'Доставалов Александр Васильевич',
+        years: '1963–2000',
+        category: 'modern',
+        categoryLabel: 'Герои России (Современность)',
+        award: 'Герой Российской Федерации (посмертно)',
+        ageAtFeat: '36 лет',
+        isStudentPeer: false,
+        location: 'г. Уфа',
+        shortFeat: 'Уроженец Уфы, гвардии майор ВДВ. В ночь на 1 марта 2000 года под шквальным огнём прорвался на высоту 776 к окружённой 6-й роте псковских десантников.',
+        tacticalTask: '29 февраля – 1 марта 2000 года в Аргунском ущелье на высоте 776 6-я рота 104-го полка ВДВ вступила в неравный бой с многократно превосходящей группировкой боевиков.',
+        decision: 'Заместитель командира батальона гвардии майор Александр Доставалов находился на соседней высоте с 4-й ротой. Услышав по рации о критическом положении товарищей, он по собственной инициативе возглавил взвод добровольцев, в темноте под миномётным огнём прорвался сквозь кольцо окружения на высоту 776 и, будучи трижды раненым, руководил обороной до последнего боя.',
+        aftermath: 'Подвиг десантников на высоте 776 стал символом воинского братства современной России.',
+        memoryPlace: 'Башкирский кадетский корпус ПФО им. Героя России А. В. Доставалова, памятник в парке Победы г. Уфы.'
+      },
+      {
+        id: 'modern_peers',
+        name: 'Серафимов Максим Владимирович и Ильгамов Тамерлан Айсарович',
+        years: 'Герои России XXI века',
+        category: 'modern',
+        categoryLabel: 'Герои России (Современность)',
+        award: 'Герои Российской Федерации (посмертно)',
+        ageAtFeat: '26–27 лет',
+        isStudentPeer: true,
+        location: 'г. Уфа и Башкирское Зауралье',
+        shortFeat: 'Молодые воины современности из Башкортостана и Зауралья: 10-часовая круговая оборона группы спецназа и зенитно-ракетный бой до последней ракеты.',
+        tacticalTask: 'Выполнение сложнейших боевых задач в условиях многократного численного превосходства противника.',
+        decision: '1) Гвардии старший лейтенант Максим Серафимов (г. Уфа) — командир группы специального назначения. В феврале 2022 года его подразделение блокировало стратегический объект и в течение 10 часов отражало непрерывные атаки бронетехники. В критическую минуту офицер накрыл собой упавшую в укрытие гранату, спасая подчинённых.\n2) Гвардии прапорщик Тамерлан Ильгамов (уроженец Башкирского Зауралья, учился в Сибае) — командир боевого расчёта ЗРПК «Панцирь-С1», в одном бою сбил 9 воздушных целей врага, ведя огонь до полного израсходования боекомплекта.',
+        aftermath: 'Доказательство того, что код мужества уроженцев Башкортостана остаётся неизменным в каждом поколении.',
+        memoryPlace: 'Центр образования № 40 им. М. В. Серафимова и центр «Патриот» в Уфе, мемориалы и школы в Зауралье.'
+      }
+    ];
+
+    // 2. БАЗА ДАННЫХ УЛИЦ ДЛЯ ВКЛАДКИ 2 («ИМЕНА НА УЛИЦАХ»)
+    const STREETS_DATA = [
+      {
+        id: 'st_sunagatullin',
+        city: 'г. Учалы / с. Имангулово',
+        streetName: 'Улица Сунагатуллина',
+        heroName: 'Жавдат Гумурдакович Сунагатуллин (1924–2007)',
+        ageBadge: 'Подвиг в 19 лет (наш ровесник)',
+        coordinates: 'Учалинский район, микрорайон Бурансы / с. Имангулово',
+        whyNamed: 'Названа в честь уроженца деревни Имангулово Учалинского района, который в 19 лет стал Героем Советского Союза за форсирование Днепра.',
+        criticalMoment: 'Ночью 26 сентября 1943 года под огнём переплыл Днепр, в одиночку разведал траншеи врага, а утром гранатой подбил немецкий танк, БТР и в рукопашной схватке удержал рубеж.',
+        localFact: 'В отличие от многих героев, погибших на фронте, Жавдат Гумурдакович прошёл всю войну, вернулся домой и много лет жил и работал среди учалинцев — преподавал в школе и служил в МВД в Учалах.'
+      },
+      {
+        id: 'st_ahmetgalin',
+        city: 'г. Учалы / с. Сафарово',
+        streetName: 'Улица Ахметгалина',
+        heroName: 'Хакимьян Рахимович Ахметгалин (1923–1944)',
+        ageBadge: 'Подвиг в 21 год (наш ровесник)',
+        coordinates: 'г. Учалы и центральная часть с. Сафарово',
+        whyNamed: 'Увековечивает имя 21-летнего старшего сержанта из деревни Сафарово Учалинского района.',
+        criticalMoment: '18 июля 1944 года в Латвии во главе группы из 10 бойцов разных национальностей занял стратегическую высоту Сунуплява и удерживал её в полном окружении против танков и пехоты врага до подхода основных сил.',
+        localFact: 'В родном селе Сафарово Учалинского района установлен бюст героя, а в школьном музее бережно хранятся архивные материалы о бое на высоте 144,0.'
+      },
+      {
+        id: 'st_matrosov',
+        city: 'г. Учалы / г. Уфа / д. Кунакбаево',
+        streetName: 'Улица Матросова',
+        heroName: 'Александр Матросов (Шакирьян Мухамедьянов, 1924–1943)',
+        ageBadge: 'Подвиг в 19 лет (наш ровесник)',
+        coordinates: 'г. Учалы, исторический центр г. Уфы, мемориал в д. Кунакбаево',
+        whyNamed: 'Одна из самых известных улиц в Учалах и Уфе, названная в честь 19-летнего гвардейца, чьё имя стало символом бесстрашия.',
+        criticalMoment: '27 февраля 1943 года в бою у деревни Чернушки, когда пулемёт центрального немецкого дзота остановил наступление роты, 19-летний боец закрыл амбразуру своим телом.',
+        localFact: 'В деревне Кунакбаево Учалинского района действует музей героя, где собраны свидетельства односельчан и документы о его детских годах под именем Шакирьяна Юнусовича Мухамедьянова.'
+      },
+      {
+        id: 'st_shaimuratov',
+        city: 'г. Уфа и города Башкортостана',
+        streetName: 'Советская площадь и ул. Шаймуратова',
+        heroName: 'Генерал-майор Минигали Мингазович Шаймуратов (1899–1943)',
+        ageBadge: 'Комдив легендарной 112-й Башкавдивизии',
+        coordinates: 'г. Уфа, Советская площадь (главный мемориал республики)',
+        whyNamed: 'Главный военно-исторический ансамбль Башкортостана посвящен командиру 112-й Башкирской кавалерийской дивизии и всем воинам республики.',
+        criticalMoment: 'Сформировал в Уфе кавалерийскую дивизию, которая установила мировой рекорд сухопутных войск — 78 Героев Советского Союза и 5 полных кавалеров ордена Славы. Погиб в феврале 1943 года при выходе из рейда по тылам врага.',
+        localFact: 'Ежегодно на Советской площади у памятника генералу Шаймуратову проходят торжественные построения студентов, кадетов и юнармейцев республики.'
+      },
+      {
+        id: 'st_gareev',
+        city: 'г. Уфа и районы РБ',
+        streetName: 'Бульвар Славы и ул. Мусы Гареева',
+        heroName: 'Полковник Муса Гайсинович Гареев (1922–1987)',
+        ageBadge: 'Дважды Герой СССР в 22 года!',
+        coordinates: 'г. Уфа, проспект Октября / Бульвар Славы, ул. Худайбердина, 4',
+        whyNamed: 'Названы в честь единственного Дважды Героя Советского Союза из Башкортостана.',
+        criticalMoment: 'В 20–22 года совершил 250 боевых вылетов на штурмовике Ил-2. Благодаря филигранному расчёту прошёл всю войну от Сталинграда до Кёнигсберга без единого ранения.',
+        localFact: 'Когда Муса Гареев в 1945 году вернулся в Уфу с двумя Золотыми Звёздами Героя на груди, ему было всего 22 года — возраст выпускника современного колледжа или вуза.'
+      },
+      {
+        id: 'st_kovshova',
+        city: 'г. Уфа (мкр. Сипайлово)',
+        streetName: 'Улица Натальи Ковшовой',
+        heroName: 'Наталья Венедиктовна Ковшова (1920–1942)',
+        ageBadge: 'Подвиг в 21 год (наша ровесница)',
+        coordinates: 'г. Уфа, Октябрьский район (Сипайлово) и мемориальная доска на ул. Пушкина',
+        whyNamed: 'Улица носит имя первой женщины — Героя Советского Союза из Башкортостана, уроженки Уфы.',
+        criticalMoment: 'В 21 год стала инструктором снайперского дела на фронте, лично уничтожила свыше 160 гитлеровцев и 14 августа 1942 года вела бой в окружении до последнего патрона и гранаты.',
+        localFact: 'До ухода добровольцем на фронт Наташа мечтала стать авиационным инженером и готовилась к учёбе в институте.'
+      }
+    ];
+
+    // 3. БАЗА ВОПРОСОВ ДЛЯ ВКЛАДКИ 3 («ИНТЕРАКТИВНЫЙ ТЕСТ»)
+    const QUIZ_QUESTIONS = [
+      {
+        question: 'Почему французы в Отечественную войну 1812–1814 годов прозвали воинов 28 башкирских полков «Северными амурами»?',
+        options: [
+          'За парадную форму с золотым шитьём',
+          'За бесшумное и меткое применение боевых луков со стрелами наряду с саблями и пиками',
+          'За то, что полки формировались только на севере Урала',
+          'Такое название дал им император Александр I в Манифесте'
+        ],
+        correctIndex: 1,
+        explanation: 'Верно! Башкирские конники мастерски владели луками: стрелы летели бесшумно и поражали врага на дистанции до 200 шагов, за что потрясённые французы прозвали их «Северными амурами».'
+      },
+      {
+        question: 'Какой мировой рекорд среди всех сухопутных соединений Второй мировой войны принадлежит 112-й Башкирской кавалерийской дивизии генерала М. М. Шаймуратова?',
+        options: [
+          'Самая большая численность личного состава на фронте',
+          '78 бойцов и командиров дивизии стали Героями Советского Союза и 5 — полными кавалерами ордена Славы',
+          'Дивизия воевала только в горной местности Кавказа',
+          'Использование тяжёлых танков в составе кавалерии'
+        ],
+        correctIndex: 1,
+        explanation: 'Точно! 78 Героев Советского Союза и 5 полных кавалеров ордена Славы в одной дивизии — абсолютный рекорд мужества в военной истории.'
+      },
+      {
+        question: 'Сколько лет было единственному Дважды Герою Советского Союза из Башкортостана — лётчику-штурмовику Мусе Гарееву — к моменту окончания Великой Отечественной войны (250 боевых вылетов на Ил-2)?',
+        options: [
+          '22 года (ровесник выпускников колледжа)',
+          '38 лет',
+          '45 лет',
+          '31 год'
+        ],
+        correctIndex: 0,
+        explanation: 'Правильно! Муса Гареев родился в июне 1922 года, и в мае 1945 года, когда за его плечами было уже 250 боевых вылетов и две Звезды Героя, ему было всего 22 года.'
+      },
+      {
+        question: 'Какой подвиг совершил 19-летний уроженец деревни Имангулово Учалинского района Жавдат Гумурдакович Сунагатуллин в сентябре 1943 года?',
+        options: [
+          'Провёл партизанский отряд через белорусские леса',
+          'При форсировании Днепра в одиночку ночью разведал оборону врага, а утром гранатой подбил танк, БТР и уничтожил пулемётный расчёт',
+          'Командовал подводной лодкой на Северном флоте',
+          'Установил знамя над Кёнигсбергом'
+        ],
+        correctIndex: 1,
+        explanation: 'Абсолютно верно! В 19 лет рядовой Жавдат Сунагатуллин из д. Имангулово совершил выдающийся подвиг на Днепре, прошёл войну и вернулся в родной Учалинский район.'
+      },
+      {
+        question: 'Сколько жителей Учалинского района ушли на фронт в годы Великой Отечественной войны и сколько из них удостоены звания Героя Советского Союза?',
+        options: [
+          '3 500 фронтовиков и 2 Героя Советского Союза',
+          '13 437 фронтовиков (из них 9 785 не вернулись), 6 Героев Советского Союза и 3 полных кавалера ордена Славы',
+          '25 000 фронтовиков и 15 Героев Советского Союза',
+          '5 000 фронтовиков и 1 Герой Советского Союза'
+        ],
+        correctIndex: 1,
+        explanation: 'Верно! Из Учалинского района на фронт ушли 13 437 человек, 6 наших земляков стали Героями Советского Союза (Ж. Сунагатуллин, Х. Ахметгалин, А. Матросов / Ш. Мухамедьянов, А. Серебрянников, М. Ташкин, П. Кровко) и 3 — полными кавалерами ордена Славы.'
+      }
+    ];
+
+    // Глобальное состояние приложения
+    let currentCategory = 'all';
+    let selectedStreetId = STREETS_DATA[0].id;
+    let quizCurrentIndex = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+    let qrCodeInstance = null;
+
+    // ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+    function switchTab(tabName) {
+      const tabs = ['heroes', 'streets', 'quiz'];
+      tabs.forEach(t => {
+        const content = document.getElementById(`tabContent-${t}`);
+        const btn = document.getElementById(`tabBtn-${t}`);
+        if (t === tabName) {
+          content.classList.remove('hidden');
+          btn.className = 'py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2 bg-gold text-slate-950 shadow-md';
+        } else {
+          content.classList.add('hidden');
+          btn.className = 'py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center gap-2 text-slate-300 hover:text-white hover:bg-bgCardHover';
+        }
+      });
+    }
+
+    // ФИЛЬТРАЦИЯ КАТЕГОРИЙ ГЕРОЕВ
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = 'cat-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-gold text-slate-950 transition';
+        } else {
+          btn.className = 'cat-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-bgMain text-slate-300 border border-borderDark hover:border-gold/50 transition';
+        }
+      });
+      renderHeroes();
+    }
+
+    // ОТРИСОВКА КАРТОЧЕК ГЕРОЕВ
+    function renderHeroes() {
+      const grid = document.getElementById('heroesGrid');
+      const onlyPeers = document.getElementById('peersToggle').checked;
+      const searchQuery = document.getElementById('heroSearchInput').value.trim().toLowerCase();
+
+      const filtered = HEROES_DATA.filter(h => {
+        const matchCat = currentCategory === 'all' || h.category === currentCategory;
+        const matchPeers = !onlyPeers || h.isStudentPeer;
+        const matchSearch = !searchQuery ||
+          h.name.toLowerCase().includes(searchQuery) ||
+          h.location.toLowerCase().includes(searchQuery) ||
+          h.shortFeat.toLowerCase().includes(searchQuery) ||
+          h.decision.toLowerCase().includes(searchQuery);
+        return matchCat && matchPeers && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full tactical-card rounded-2xl p-10 text-center">
+            <div class="text-gold text-lg font-bold mb-2">По вашему запросу ничего не найдено</div>
+            <p class="text-sm text-slate-400 mb-4">Попробуйте сбросить фильтр «Только наши ровесники» или изменить поисковый запрос.</p>
+            <button onclick="resetHeroFilters()" class="px-4 py-2 rounded-xl bg-gold text-slate-950 font-semibold text-xs">Сбросить фильтры</button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(hero => `
+        <article class="tactical-card rounded-2xl p-6 flex flex-col justify-between relative group">
+          <div>
+            <!-- Верхняя строка бейджей -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <span class="text-[11px] font-mono uppercase px-2.5 py-1 rounded-md ${
+                hero.category === 'uchaly'
+                  ? 'bg-gold/15 text-gold border border-gold/40'
+                  : 'bg-slate-800 text-slate-300 border border-slate-700'
+              }">
+                ${hero.categoryLabel}
+              </span>
+
+              ${hero.isStudentPeer ? `
+                <span class="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-emeraldAccent/15 text-emeraldAccent border border-emeraldAccent/30 flex items-center gap-1">
+                  🎓 Подвиг: ${hero.ageAtFeat}
+                </span>
+              ` : `
+                <span class="text-[11px] font-mono text-slate-400">
+                  Возраст: ${hero.ageAtFeat}
+                </span>
+              `}
+            </div>
+
+            <!-- Имя и годы -->
+            <h3 class="font-serif text-xl font-bold text-white group-hover:text-gold transition leading-snug">
+              ${hero.name}
+            </h3>
+            <div class="text-xs text-gold font-medium mt-1 flex items-center gap-1.5">
+              <span>★ ${hero.award}</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-slate-400">${hero.years}</span>
+            </div>
+
+            <!-- География -->
+            <div class="mt-3 text-xs text-slate-400 flex items-center gap-1.5 bg-bgMain/80 px-3 py-1.5 rounded-lg border border-borderDark/70">
+              <svg class="w-3.5 h-3.5 text-emeraldAccent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              </svg>
+              <span class="truncate">${hero.location}</span>
+            </div>
+
+            <!-- Краткое описание подвига -->
+            <p class="text-sm text-slate-300 mt-4 leading-relaxed">
+              ${hero.shortFeat}
+            </p>
+          </div>
+
+          <!-- Кнопка открытия полного тактического разбора -->
+          <div class="mt-6 pt-4 border-t border-borderDark/80 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400 font-mono">Архивное досье</span>
+            <button onclick="openHeroModal('${hero.id}')" class="px-3.5 py-2 rounded-xl bg-bgMain hover:bg-gold hover:text-slate-950 text-gold border border-gold/40 text-xs font-semibold transition flex items-center gap-1.5">
+              <span>Тактический разбор</span>
+              <span>→</span>
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function resetHeroFilters() {
+      document.getElementById('peersToggle').checked = false;
+      document.getElementById('heroSearchInput').value = '';
+      setCategory('all');
+    }
+
+    // МОДАЛЬНОЕ ОКНО КОНКРЕТНОГО ГЕРОЯ
+    function openHeroModal(heroId) {
+      const hero = HEROES_DATA.find(h => h.id === heroId);
+      if (!hero) return;
+
+      const content = document.getElementById('heroModalContent');
+      content.innerHTML = `
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="text-xs font-mono uppercase px-3 py-1 rounded-full bg-gold/15 text-gold border border-gold/40">
+            ${hero.award}
+          </span>
+          ${hero.isStudentPeer ? `
+            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emeraldAccent/15 text-emeraldAccent border border-emeraldAccent/30">
+              🎓 Ровесник студентов (${hero.ageAtFeat})
+            </span>
+          ` : ''}
+        </div>
+
+        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight">${hero.name}</h3>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">${hero.years} • Место рождения / призыва: <strong class="text-slate-200">${hero.location}</strong></p>
+
+        <div class="mt-6 space-y-4 text-sm">
+          <div class="p-4 rounded-xl bg-bgMain border border-borderDark">
+            <div class="text-xs font-mono uppercase text-gold mb-1">1. Боевая обстановка и тактическая задача:</div>
+            <p class="text-slate-200 leading-relaxed">${hero.tacticalTask}</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-bgMain border border-emeraldAccent/40">
+            <div class="text-xs font-mono uppercase text-emeraldAccent mb-1">2. Принятое решение и суть подвига:</div>
+            <p class="text-slate-200 leading-relaxed whitespace-pre-line">${hero.decision}</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-bgMain border border-borderDark">
+            <div class="text-xs font-mono uppercase text-slate-400 mb-1">3. Исторический итог:</div>
+            <p class="text-slate-300 leading-relaxed">${hero.aftermath}</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-gold/10 border border-gold/30">
+            <div class="text-xs font-mono uppercase text-gold mb-1">📍 Где увековечено имя сегодня:</div>
+            <p class="text-white font-medium leading-relaxed">${hero.memoryPlace}</p>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-end">
+          <button onclick="closeHeroModal()" class="px-5 py-2.5 rounded-xl bg-gold text-slate-950 font-bold text-sm">
+            Закрыть досье
+          </button>
+        </div>
+      `;
+
+      document.getElementById('heroModal').classList.remove('hidden');
+    }
+
+    function closeHeroModal() {
+      document.getElementById('heroModal').classList.add('hidden');
+    }
+
+    // ОТРИСОВКА ВКЛАДКИ 2 («ИМЕНА НА УЛИЦАХ»)
+    function renderStreets() {
+      const listEl = document.getElementById('streetListContainer');
+      const detailEl = document.getElementById('streetDetailContainer');
+
+      listEl.innerHTML = STREETS_DATA.map(st => {
+        const isActive = st.id === selectedStreetId;
+        return `
+          <button onclick="selectStreet('${st.id}')" class="street-plaque ${isActive ? 'active' : ''} w-full text-left rounded-xl p-4 flex items-center justify-between gap-3">
+            <div>
+              <div class="text-[11px] font-mono uppercase ${isActive ? 'text-gold' : 'text-slate-400'}">${st.city}</div>
+              <div class="text-base sm:text-lg font-bold text-white mt-0.5">${st.streetName}</div>
+              <div class="text-xs text-slate-400 mt-0.5">${st.heroName}</div>
+            </div>
+            <div class="w-8 h-8 rounded-lg bg-bgMain border border-borderDark flex items-center justify-center text-gold shrink-0">
+              →
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      const activeStreet = STREETS_DATA.find(s => s.id === selectedStreetId) || STREETS_DATA[0];
+      detailEl.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-borderDark">
+          <span class="text-xs font-mono uppercase px-3 py-1 rounded-full bg-gold/15 text-gold border border-gold/30">
+            📍 ${activeStreet.city}
+          </span>
+          <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emeraldAccent/15 text-emeraldAccent border border-emeraldAccent/30">
+            ${activeStreet.ageBadge}
+          </span>
+        </div>
+
+        <!-- Визуализация таблички -->
+        <div class="my-5 p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-blue-950/60 to-slate-900 border-2 border-gold/50 flex items-center justify-between shadow-lg">
+          <div>
+            <div class="text-[10px] font-mono uppercase tracking-widest text-gold">АДРЕСНАЯ КАРТА ПАМЯТИ • РЕСПУБЛИКА БАШКОРТОСТАН</div>
+            <div class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">${activeStreet.streetName}</div>
+            <div class="text-xs text-slate-300 mt-1">${activeStreet.coordinates}</div>
+          </div>
+          <div class="hidden sm:flex w-12 h-12 rounded-xl bg-gold/15 border border-gold/40 items-center justify-center text-gold font-serif font-bold text-xl">
+            ★
+          </div>
+        </div>
+
+        <div class="space-y-4 text-sm">
+          <div>
+            <div class="text-xs font-mono uppercase text-slate-400 mb-1">Чьё имя носит улица:</div>
+            <div class="text-base font-bold text-white">${activeStreet.heroName}</div>
+            <p class="text-slate-300 mt-1 leading-relaxed">${activeStreet.whyNamed}</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-bgMain border border-borderDark">
+            <div class="text-xs font-mono uppercase text-gold mb-1">Решающая минута (за что присвоено звание Героя):</div>
+            <p class="text-slate-200 leading-relaxed">${activeStreet.criticalMoment}</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/30">
+            <div class="text-xs font-mono uppercase text-emeraldAccent mb-1">Краеведческий факт для студентов:</div>
+            <p class="text-slate-200 leading-relaxed">${activeStreet.localFact}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectStreet(id) {
+      selectedStreetId = id;
+      renderStreets();
+    }
+
+    // ОТРИСОВКА ВКЛАДКИ 3 («ИНТЕРАКТИВНЫЙ ТЕСТ»)
+    function renderQuiz() {
+      const container = document.getElementById('quizBody');
+      const scoreBadge = document.getElementById('quizScoreBadge');
+      scoreBadge.textContent = `${quizScore} / ${QUIZ_QUESTIONS.length}`;
+
+      if (quizCurrentIndex >= QUIZ_QUESTIONS.length) {
+        const percent = Math.round((quizScore / QUIZ_QUESTIONS.length) * 100);
+        let title = 'Отличный результат! Вы знаете Код мужества Башкортостана!';
+        if (quizScore < 3) title = 'Хорошее начало! Рекомендуем изучить карточки героев во вкладке №1.';
+        else if (quizScore < 5) title = 'Достойный уровень знаний истории родного края!';
+
+        container.innerHTML = `
+          <div class="text-center py-8">
+            <div class="w-16 h-16 rounded-2xl bg-gold/20 border border-gold text-gold flex items-center justify-center text-3xl mx-auto mb-4">
+              ★
+            </div>
+            <div class="text-xs font-mono uppercase text-emeraldAccent">Тестирование завершено</div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-bold text-white mt-2">${title}</h3>
+            <p class="text-slate-300 mt-2 text-base">
+              Вы правильно ответили на <strong class="text-gold">${quizScore} из ${QUIZ_QUESTIONS.length}</strong> вопросов (${percent}%).
+            </p>
+            <div class="mt-6 flex justify-center gap-3">
+              <button onclick="restartQuiz()" class="px-5 py-2.5 rounded-xl bg-gold text-slate-950 font-bold text-sm">
+                Пройти тест заново
+              </button>
+              <button onclick="switchTab('heroes')" class="px-5 py-2.5 rounded-xl bg-bgMain border border-borderDark text-slate-200 text-sm font-medium">
+                Перейти к карточкам героев
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const q = QUIZ_QUESTIONS[quizCurrentIndex];
+      container.innerHTML = `
+        <div class="mb-4 flex items-center justify-between text-xs font-mono text-slate-400">
+          <span>ВОПРОС ${quizCurrentIndex + 1} ИЗ ${QUIZ_QUESTIONS.length}</span>
+          <span>Выберите 1 вариант ответа</span>
+        </div>
+
+        <!-- Прогресс-бар -->
+        <div class="w-full h-2 bg-bgMain rounded-full overflow-hidden mb-6 border border-borderDark">
+          <div class="h-full bg-gold transition-all duration-300" style="width: ${((quizCurrentIndex + 1) / QUIZ_QUESTIONS.length) * 100}%"></div>
+        </div>
+
+        <h3 class="text-lg sm:text-xl font-bold text-white leading-snug mb-5">
+          ${q.question}
+        </h3>
+
+        <div class="space-y-3" id="quizOptionsList">
+          ${q.options.map((opt, idx) => `
+            <button
+              onclick="answerQuiz(${idx})"
+              id="quizOpt-${idx}"
+              class="w-full text-left p-4 rounded-xl bg-bgMain border border-borderDark hover:border-gold/60 text-sm text-slate-200 transition flex items-start gap-3"
+            >
+              <span class="w-6 h-6 rounded-md bg-bgCard border border-borderDark text-xs font-mono flex items-center justify-center shrink-0 mt-0.5 text-gold">
+                ${idx + 1}
+              </span>
+              <span>${opt}</span>
+            </button>
+          `).join('')}
+        </div>
+
+        <div id="quizFeedback" class="hidden mt-5 p-4 rounded-xl border text-sm"></div>
+
+        <div id="quizNextWrap" class="hidden mt-6 flex justify-end">
+          <button onclick="nextQuizQuestion()" class="px-5 py-2.5 rounded-xl bg-gold text-slate-950 font-bold text-sm">
+            ${quizCurrentIndex + 1 === QUIZ_QUESTIONS.length ? 'Посмотреть итоги теста →' : 'Следующий вопрос →'}
+          </button>
+        </div>
+      `;
+    }
+
+    function answerQuiz(selectedIndex) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+
+      const q = QUIZ_QUESTIONS[quizCurrentIndex];
+      const isCorrect = selectedIndex === q.correctIndex;
+      if (isCorrect) quizScore++;
+
+      document.getElementById('quizScoreBadge').textContent = `${quizScore} / ${QUIZ_QUESTIONS.length}`;
+
+      q.options.forEach((_, idx) => {
+        const btn = document.getElementById(`quizOpt-${idx}`);
+        if (idx === q.correctIndex) {
+          btn.className = 'w-full text-left p-4 rounded-xl bg-emeraldAccent/20 border-2 border-emeraldAccent text-sm text-white font-semibold flex items-start gap-3';
+        } else if (idx === selectedIndex && !isCorrect) {
+          btn.className = 'w-full text-left p-4 rounded-xl bg-red-500/20 border-2 border-red-500 text-sm text-red-200 flex items-start gap-3';
+        } else {
+          btn.className = 'w-full text-left p-4 rounded-xl bg-bgMain/50 border border-borderDark/50 text-sm text-slate-500 flex items-start gap-3 opacity-60';
+        }
+      });
+
+      const feedback = document.getElementById('quizFeedback');
+      feedback.classList.remove('hidden');
+      if (isCorrect) {
+        feedback.className = 'mt-5 p-4 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/40 text-sm text-slate-200';
+        feedback.innerHTML = `<strong class="text-emeraldAccent">✓ Верный ответ!</strong> ${q.explanation}`;
+      } else {
+        feedback.className = 'mt-5 p-4 rounded-xl bg-amber-500/10 border border-amber-500/40 text-sm text-slate-200';
+        feedback.innerHTML = `<strong class="text-gold">Историческая справка:</strong> ${q.explanation}`;
+      }
+
+      document.getElementById('quizNextWrap').classList.remove('hidden');
+    }
+
+    function nextQuizQuestion() {
+      quizCurrentIndex++;
+      quizAnswered = false;
+      renderQuiz();
+    }
+
+    function restartQuiz() {
+      quizCurrentIndex = 0;
+      quizScore = 0;
+      quizAnswered = false;
+      renderQuiz();
+    }
+
+    // МОДАЛЬНОЕ ОКНО ПАСПОРТА ПРОЕКТА
+    function openPassportModal() {
+      document.getElementById('passportModal').classList.remove('hidden');
+    }
+    function closePassportModal() {
+      document.getElementById('passportModal').classList.add('hidden');
+    }
+
+    // МОДАЛЬНОЕ ОКНО И ГЕНЕРАЦИЯ QR-КОДА
+    function openQrModal() {
+      const input = document.getElementById('qrUrlInput');
+      if (!input.value) {
+        const currentHref = window.location.href;
+        input.value = currentHref.startsWith('http')
+          ? currentHref
+          : 'https://bashkortostan-heroes-code.github.io/';
+      }
+      document.getElementById('qrModal').classList.remove('hidden');
+      generateQrCode();
+    }
+
+    function closeQrModal() {
+      document.getElementById('qrModal').classList.add('hidden');
+    }
+
+    function generateQrCode() {
+      const url = document.getElementById('qrUrlInput').value.trim() || 'https://bashkortostan-heroes-code.github.io/';
+      const container = document.getElementById('qrcodeContainer');
+      container.innerHTML = '';
+
+      if (typeof QRCode !== 'undefined') {
+        qrCodeInstance = new QRCode(container, {
+          text: url,
+          width: 200,
+          height: 200,
+          colorDark: '#0b0f17',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } else {
+        // Надёжный резервный Canvas-отрисовщик на случай отсутствия интернета
+        const canvas = document.createElement('canvas');
+        canvas.width = 200;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, 200, 200);
+        ctx.fillStyle = '#0b0f17';
+        ctx.font = 'bold 12px monospace';
+        ctx.fillText('QR: КОД МУЖЕСТВА', 35, 100);
+        container.appendChild(canvas);
+      }
+    }
+
+    function copyQrUrl() {
+      const input = document.getElementById('qrUrlInput');
+      input.select();
+      document.execCommand('copy');
+      const btn = document.getElementById('copyUrlBtn');
+      btn.textContent = 'Скопировано!';
+      setTimeout(() => { btn.textContent = 'Копировать'; }, 2000);
+    }
+
+    function downloadQrPng() {
+      const container = document.getElementById('qrcodeContainer');
+      const canvas = container.querySelector('canvas');
+      const img = container.querySelector('img');
+
+      const link = document.createElement('a');
+      link.download = 'qr-kod-muzhestva-bashkortostan.png';
+
+      if (canvas) {
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } else if (img && img.src) {
+        link.href = img.src;
+        link.click();
+      }
+    }
+
+    // ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ
+    window.addEventListener('DOMContentLoaded', () => {
+      renderHeroes();
+      renderStreets();
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
